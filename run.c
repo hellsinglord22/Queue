@@ -118,8 +118,8 @@ bool enqueue(queue* head, int element)
 {
     if (head->length < CAPACITY)
     {
-        head->length++;
         head->elements[(head->head + head->length) % CAPACITY] = element; 
+        head->length++;
         
         return true; 
     }
