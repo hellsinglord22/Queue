@@ -12,7 +12,7 @@ typedef struct
     int elements[CAPACITY]; 
     int head; 
     int length; 
-}Queue; 
+}queue; 
 
 // define bool 
 typedef int bool; 
@@ -25,7 +25,62 @@ int length(queue* head);
 
 int main(int argc,char ** argv)
 { 
-    // TODO Write test program
+    // Sanity check 
+    if (argc != 1)
+    {
+        printf("Usage: ./run\n");
+        return 1;
+    }
+    // Attrbutes 
+    int opition;
+    int value;
+    queue test; 
+    
+    test.length = 0; 
+    test.head = 0;
+    
+    // program main loop 
+    do
+    {
+        // Prompt the user for an opition
+        printf("0. Exit\n");
+        printf("1. Enqueue an element.\n");
+        printf("2. Dequeue an element.\n");
+        
+        // take user opition
+        scanf("%d", &opition);
+        
+        switch(opition)
+        {
+            // Enqueue an Element
+            case 1: 
+                printf("Value: ");
+                scanf("%d", &value);
+                if (enqueue(&test, value))
+                {
+                    printf("Success\n");
+                }
+                else 
+                {
+                    printf("Fail\n");
+                }
+                break;
+                
+            // Dequeue an element
+            case 2:
+                if (dequeue(&test, &value))
+                {
+                    printf("Success.\n");
+                    printf("Return %d\n", value);
+                }
+                else
+                {
+                    printf("Fail\n");
+                }
+                break;
+        }
+        
+    }while(opition != 0);
     
     return 0;
 }
@@ -64,7 +119,7 @@ bool enqueue(queue* head, int element)
     if (head->length < CAPACITY)
     {
         head->length++;
-        elements[(head->head + head->length) % CAPACITY] = element; 
+        head->elements[(head->head + head->length) % CAPACITY] = element; 
         
         return true; 
     }
